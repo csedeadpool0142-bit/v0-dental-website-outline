@@ -1,5 +1,4 @@
 import { Star, DollarSign, HeartHandshake, Siren } from "lucide-react"
-import { Button } from "@/components/ui/button"
 import {
   Accordion,
   AccordionContent,
@@ -57,11 +56,7 @@ const trustBadges = [
   { icon: Siren, label: "Emergency Visits Available" },
 ]
 
-export default function FAQ({
-  onBookAppointment,
-}: {
-  onBookAppointment: () => void
-}) {
+export default function FAQ() {
   return (
     <section id="faq" className="bg-card py-16 md:py-24">
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
@@ -91,35 +86,18 @@ export default function FAQ({
 
         {/* Micro-trust badges */}
         <div className="mt-10 flex flex-wrap items-center justify-center gap-6">
-          {trustBadges.map((badge) => (
-            <span
-              key={badge.label}
-              className="flex items-center gap-1.5 text-sm text-muted-foreground"
-            >
-              <badge.icon className="h-4 w-4 text-primary" />
-              {badge.label}
-            </span>
-          ))}
-        </div>
-
-        {/* CTA */}
-        <div className="mt-8 text-center">
-          <Button
-            onClick={onBookAppointment}
-            className="bg-primary text-primary-foreground hover:bg-[#1D4ED8] px-8"
-            size="lg"
-          >
-            Book Appointment
-          </Button>
-          <p className="mt-3 text-sm text-muted-foreground">
-            Or call us directly:{" "}
-            <a
-              href="tel:6045550142"
-              className="font-medium text-primary hover:underline"
-            >
-              (604) 555-0142
-            </a>
-          </p>
+          {trustBadges.map((badge) => {
+            const Icon = badge.icon
+            return (
+              <span
+                key={badge.label}
+                className="flex items-center gap-2 text-sm text-muted-foreground"
+              >
+                <Icon className="h-4 w-4 text-primary" />
+                {badge.label}
+              </span>
+            )
+          })}
         </div>
       </div>
     </section>

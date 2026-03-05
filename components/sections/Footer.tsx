@@ -51,7 +51,9 @@ export default function Footer({
             </p>
             <div className="mt-6 flex flex-col gap-3">
               <a
-                href="#"
+                href="https://www.google.com/maps/search/?api=1&query=White+Rock+BC+Canada"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="flex items-center gap-2 text-sm text-card/70 transition-colors hover:text-card"
               >
                 <MapPin className="h-4 w-4 shrink-0" />
@@ -119,15 +121,18 @@ export default function Footer({
           <div className="flex flex-col items-center gap-6">
             {/* Trust badges */}
             <div className="flex flex-wrap items-center justify-center gap-6">
-              {trustBadges.map((badge) => (
-                <span
-                  key={badge.label}
-                  className="flex items-center gap-1.5 text-sm text-card/60"
-                >
-                  <badge.icon className="h-4 w-4 text-primary" />
-                  {badge.label}
-                </span>
-              ))}
+              {trustBadges.map((badge) => {
+                const Icon = badge.icon
+                return (
+                  <span
+                    key={badge.label}
+                    className="flex items-center gap-2 text-sm text-white/80"
+                  >
+                    <Icon className="h-4 w-4 text-primary" />
+                    {badge.label}
+                  </span>
+                )
+              })}
             </div>
 
             {/* Final CTA */}

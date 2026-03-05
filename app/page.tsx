@@ -13,6 +13,7 @@ import FAQ from "@/components/sections/FAQ"
 import Footer from "@/components/sections/Footer"
 import BookingModal from "@/components/BookingModal"
 import MobileCTA from "@/components/MobileCTA"
+import DynamicBackground from "@/components/DynamicBackground"
 
 export default function Home() {
   const [bookingOpen, setBookingOpen] = useState(false)
@@ -21,6 +22,7 @@ export default function Home() {
 
   return (
     <>
+      <DynamicBackground />
       <Header onBookAppointment={openBooking} />
 
       <main>
@@ -31,7 +33,7 @@ export default function Home() {
         <ConversionBanner onBookAppointment={openBooking} />
         <MeetDoctor />
         <Comfort onBookAppointment={openBooking} />
-        <FAQ onBookAppointment={openBooking} />
+        <FAQ />
       </main>
 
       <Footer onBookAppointment={openBooking} />

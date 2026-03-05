@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useMemo } from "react"
 import { CheckCircle2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -33,13 +33,15 @@ interface FormData {
   time: string
 }
 
-const timeSlots = [
+const weekdaySlots = [
   "9:00 AM",
   "9:30 AM",
   "10:00 AM",
   "10:30 AM",
   "11:00 AM",
   "11:30 AM",
+  "12:00 PM",
+  "12:30 PM",
   "1:00 PM",
   "1:30 PM",
   "2:00 PM",
@@ -49,6 +51,20 @@ const timeSlots = [
   "4:00 PM",
   "4:30 PM",
   "5:00 PM",
+  "5:30 PM",
+]
+
+const saturdaySlots = [
+  "10:00 AM",
+  "10:30 AM",
+  "11:00 AM",
+  "11:30 AM",
+  "12:00 PM",
+  "12:30 PM",
+  "1:00 PM",
+  "1:30 PM",
+  "2:00 PM",
+  "2:30 PM",
 ]
 
 const initialFormData: FormData = {
@@ -59,10 +75,47 @@ const initialFormData: FormData = {
   time: "",
 }
 
+function getTodayDateString() {
+  const d = new Date()
+  const year = d.getFullYear()
+  const month = String(d.getMonth() + 1).padStart(2, "0")
+  const day = String(d.getDate()).padStart(2, "0")
+  return `${year}-${month}-${day}`
+}
+
+function isSunday(dateStr: string) {
+  const d = new Date(dateStr + "T00:00:00")
+  return d.getDay() === 0
+}
+
+function isSaturday(dateStr: string) {
+  const d = new Date(dateStr + "T00:00:00")
+  return d.getDay() === 6
+}
+
 export default function BookingModal({ open, onOpenChange }: BookingModalProps) {
   const [formData, setFormData] = useState<FormData>(initialFormData)
   const [submitted, setSubmitted] = useState(false)
   const [submittedData, setSubmittedData] = useState<FormData>(initialFormData)
+  const [dateError, setDateError] = useState("")
+
+  const minDate = getTodayDateString()
+
+  const availableTimeSlots = useMemo(() => {
+    if (!formData.date) return []
+    if (isSaturday(formData.date)) return saturdaySlots
+    return weekdaySlots
+  }, [formData.date])
+
+  const handleDateChange = (value: string) => {
+    if (isSunday(value)) {
+      setDateError("The clinic is closed on Sundays. Please select another day.")
+      setFormData({ ...formData, date: "", time: "" })
+      return
+    }
+    setDateError("")
+    setFormData({ ...formData, date: value, time: "" })
+  }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -72,22 +125,18 @@ export default function BookingModal({ open, onOpenChange }: BookingModalProps) 
 
   const handleBookAnother = () => {
     setFormData(initialFormData)
+    setDateError("")
     setSubmitted(false)
   }
 
   const handleClose = () => {
     onOpenChange(false)
-    // Reset after dialog close animation
     setTimeout(() => {
       setFormData(initialFormData)
+      setDateError("")
       setSubmitted(false)
     }, 300)
   }
-
-  // Get tomorrow's date as minimum date
-  const tomorrow = new Date()
-  tomorrow.setDate(tomorrow.getDate() + 1)
-  const minDate = tomorrow.toISOString().split("T")[0]
 
   return (
     <Dialog open={open} onOpenChange={handleClose}>
@@ -154,10 +203,18 @@ export default function BookingModal({ open, onOpenChange }: BookingModalProps) 
                   required
                   min={minDate}
                   value={formData.date}
-                  onChange={(e) =>
-                    setFormData({ ...formData, date: e.target.value })
-                  }
+                  onChange={(e) => handleDateChange(e.target.value)}
                 />
+                {dateError && (
+                  <p className="text-sm text-destructive">{dateError}</p>
+                )}
+                {formData.date && !dateError && (
+                  <p className="text-xs text-muted-foreground">
+                    {isSaturday(formData.date)
+                      ? "Saturday hours: 10:00 AM - 3:00 PM"
+                      : "Weekday hours: 9:00 AM - 6:00 PM"}
+                  </p>
+                )}
               </div>
 
               <div className="flex flex-col gap-2">
@@ -168,12 +225,19 @@ export default function BookingModal({ open, onOpenChange }: BookingModalProps) 
                     setFormData({ ...formData, time: value })
                   }
                   required
+                  disabled={!formData.date || !!dateError}
                 >
                   <SelectTrigger className="w-full">
-                    <SelectValue placeholder="Select a time" />
+                    <SelectValue
+                      placeholder={
+                        !formData.date
+                          ? "Select a date first"
+                          : "Select a time"
+                      }
+                    />
                   </SelectTrigger>
                   <SelectContent>
-                    {timeSlots.map((slot) => (
+                    {availableTimeSlots.map((slot) => (
                       <SelectItem key={slot} value={slot}>
                         {slot}
                       </SelectItem>
@@ -186,14 +250,13 @@ export default function BookingModal({ open, onOpenChange }: BookingModalProps) 
                 type="submit"
                 className="mt-2 w-full bg-primary text-primary-foreground hover:bg-[#1D4ED8]"
                 size="lg"
-                disabled={!formData.time}
+                disabled={!formData.time || !!dateError}
               >
                 Request Appointment
               </Button>
             </form>
           </>
         ) : (
-          /* Success State */
           <div className="flex flex-col items-center py-4 text-center">
             <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[#22C55E]">
               <CheckCircle2 className="h-8 w-8 text-white" />
@@ -206,7 +269,6 @@ export default function BookingModal({ open, onOpenChange }: BookingModalProps) 
               {"We'll confirm your appointment within 24 hours."}
             </p>
 
-            {/* Submitted Details */}
             <div className="mt-6 w-full rounded-lg border border-border bg-background p-4 text-left">
               <div className="flex flex-col gap-2 text-sm">
                 <div className="flex justify-between">
@@ -255,7 +317,6 @@ export default function BookingModal({ open, onOpenChange }: BookingModalProps) 
               </div>
             </div>
 
-            {/* Action Buttons */}
             <div className="mt-6 flex w-full flex-col gap-3 sm:flex-row">
               <Button
                 variant="outline"
