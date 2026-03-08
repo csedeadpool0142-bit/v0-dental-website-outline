@@ -60,73 +60,157 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
+
   html {
     scroll-behavior: smooth;
   }
+
   section[id] {
     scroll-margin-top: 5rem;
   }
 }
 
-/* Dynamic background orbs */
-.dynamic-orb {
+.aurora-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(135deg, #f0f9ff 0%, #e8f4fd 50%, #f0fdf4 100%);
+}
+
+.aurora-orb {
   position: absolute;
   border-radius: 50%;
-  filter: blur(100px);
-  opacity: 0.08;
   will-change: transform;
+  pointer-events: none;
+  opacity: 0.3;
 }
 
-.dynamic-orb-1 {
-  width: 600px;
-  height: 600px;
-  background: #2563EB;
-  top: -10%;
-  left: -5%;
-  animation: float-1 25s ease-in-out infinite;
+/* Orb 1 — sky blue, top-left */
+.aurora-orb-1 {
+  width: 650px;
+  height: 650px;
+  background: #38bdf8;
+  filter: blur(72px);
+  opacity: 0.5;
+  top: -180px;
+  left: -120px;
+  animation: aurora-drift-1 20s ease-in-out infinite alternate;
 }
 
-.dynamic-orb-2 {
-  width: 500px;
-  height: 500px;
-  background: #22C55E;
-  bottom: 10%;
-  right: -10%;
-  animation: float-2 30s ease-in-out infinite;
+.aurora-orb-2 {
+  width: 520px;
+  height: 520px;
+  background: #34d399;
+  filter: blur(64px);
+  opacity: 0.5;
+  top: 30px;
+  right: -100px;
+  animation: aurora-drift-2 25s ease-in-out infinite alternate;
 }
 
-.dynamic-orb-3 {
-  width: 400px;
-  height: 400px;
-  background: #2563EB;
-  top: 40%;
-  left: 30%;
-  animation: float-3 20s ease-in-out infinite;
+.aurora-orb-3 {
+  width: 420px;
+  height: 420px;
+  background: #818cf8;
+  filter: blur(56px);
+  opacity: 0.5;
+  top: 50%;
+  left: 38%;
+  animation: aurora-drift-3 30s ease-in-out infinite alternate;
 }
 
-@keyframes float-1 {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  33% { transform: translate(60px, 40px) scale(1.05); }
-  66% { transform: translate(-30px, 60px) scale(0.95); }
+@keyframes aurora-drift-1 {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+
+  33% {
+    transform: translate(55px, 45px) scale(1.06);
+  }
+
+  66% {
+    transform: translate(-25px, 70px) scale(0.97);
+  }
+
+  100% {
+    transform: translate(80px, -15px) scale(1.09);
+  }
 }
 
-@keyframes float-2 {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  33% { transform: translate(-50px, -30px) scale(1.08); }
-  66% { transform: translate(40px, -50px) scale(0.92); }
+@keyframes aurora-drift-2 {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+
+  33% {
+    transform: translate(-45px, 35px) scale(1.04);
+  }
+
+  66% {
+    transform: translate(35px, -55px) scale(0.95);
+  }
+
+  100% {
+    transform: translate(-65px, 45px) scale(1.07);
+  }
 }
 
-@keyframes float-3 {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  33% { transform: translate(30px, -40px) scale(1.03); }
-  66% { transform: translate(-40px, 30px) scale(0.97); }
+@keyframes aurora-drift-3 {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+
+  50% {
+    transform: translate(-35px, -30px) scale(1.08);
+  }
+
+  100% {
+    transform: translate(55px, 20px) scale(0.94);
+  }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .dynamic-orb {
-    animation: none !important;
+
+/* ── Animated Wave Divider (hero bottom) ────────────────────── */
+
+.wave-divider {
+  position: relative;
+  overflow: hidden;
+  line-height: 0;
+  height: 90px;
+  margin-top: -2px;
+  /* close any gap with section above */
+}
+
+.wave-divider svg {
+  width: 200%;
+  height: 100%;
+  display: block;
+  animation: wave-scroll 10s linear infinite;
+}
+
+/* Change fill to match the section BELOW the wave */
+.wave-into-white svg path {
+  fill: #ffffff;
+}
+
+.wave-into-gray svg path {
+  fill: #f8fafc;
+}
+
+.wave-into-blue svg path {
+  fill: #f0f9ff;
+}
+
+@keyframes wave-scroll {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
   }
 }

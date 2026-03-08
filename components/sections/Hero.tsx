@@ -8,7 +8,7 @@ export default function Hero({
   onBookAppointment: () => void
 }) {
   return (
-    <section className="relative overflow-hidden bg-card py-16 md:py-24">
+    <section className="relative overflow-hidden bg-transparent py-16 md:py-24">
       <div className="mx-auto flex max-w-7xl flex-col-reverse items-center gap-10 px-4 sm:px-6 md:flex-row md:gap-16 lg:px-8">
         {/* Text Column */}
         <div className="flex flex-1 flex-col items-center text-center md:items-start md:text-left">

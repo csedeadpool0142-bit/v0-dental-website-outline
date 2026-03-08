@@ -47,9 +47,8 @@ export default function Pricing({
   onBookAppointment: () => void
 }) {
   return (
-    <section id="pricing" className="bg-background py-16 md:py-24">
+    <section id="pricing" className="bg-transparent py-16 md:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
         <div className="mx-auto mb-12 max-w-2xl text-center">
           <h2 className="text-balance text-3xl font-bold text-foreground md:text-4xl">
             Transparent Pricing
@@ -59,16 +58,14 @@ export default function Pricing({
           </p>
         </div>
 
-        {/* Pricing Cards */}
         <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
           {pricingPlans.map((plan) => (
             <div
               key={plan.title}
-              className={`relative flex flex-col rounded-xl border p-6 transition-transform duration-300 hover:-translate-y-1 ${
-                plan.featured
-                  ? "border-primary bg-card shadow-lg"
-                  : "border-border bg-card"
-              }`}
+              className={`relative flex flex-col rounded-xl border p-6 transition-transform duration-300 hover:-translate-y-1 backdrop-blur-sm ${plan.featured
+                  ? "border-primary bg-white/70 shadow-lg"
+                  : "border-border bg-white/60"
+                }`}
             >
               {plan.featured && (
                 <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground">
@@ -99,11 +96,10 @@ export default function Pricing({
               </ul>
               <Button
                 onClick={onBookAppointment}
-                className={`w-full ${
-                  plan.featured
+                className={`w-full ${plan.featured
                     ? "bg-primary text-primary-foreground hover:bg-[#1D4ED8]"
                     : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
-                }`}
+                  }`}
               >
                 Book Appointment
               </Button>
@@ -111,7 +107,6 @@ export default function Pricing({
           ))}
         </div>
 
-        {/* Invisalign Note + Insurance */}
         <div className="mt-10 text-center">
           <p className="text-sm text-muted-foreground">
             <span className="font-semibold text-foreground">

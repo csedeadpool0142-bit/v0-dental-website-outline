@@ -10,9 +10,8 @@ const credentials = [
 
 export default function MeetDoctor() {
   return (
-    <section id="about" className="bg-card py-16 md:py-24">
+    <section id="about" className="bg-transparent py-16 md:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
         <div className="mx-auto mb-12 max-w-2xl text-center">
           <h2 className="text-balance text-3xl font-bold text-foreground md:text-4xl">
             Meet Dr. Maya Patel, DDS
@@ -23,7 +22,6 @@ export default function MeetDoctor() {
         </div>
 
         <div className="flex flex-col items-center gap-10 md:flex-row md:gap-16">
-          {/* Photo */}
           <div className="w-full flex-shrink-0 md:w-2/5">
             <div className="relative mx-auto aspect-[3/4] w-full max-w-sm overflow-hidden rounded-2xl bg-secondary">
               <Image
@@ -36,7 +34,6 @@ export default function MeetDoctor() {
             </div>
           </div>
 
-          {/* Bio */}
           <div className="flex-1">
             <p className="text-base leading-relaxed text-muted-foreground md:text-lg">
               Dr. Maya Patel believes dentistry should feel calm, clear, and
@@ -50,12 +47,11 @@ export default function MeetDoctor() {
               leaves with a healthier smile and a positive experience.
             </p>
 
-            {/* Credentials */}
             <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
               {credentials.map((cred) => (
                 <div
                   key={cred.label}
-                  className="flex items-center gap-3 rounded-lg border border-border bg-background p-4"
+                  className="flex items-center gap-3 rounded-lg border border-border bg-white/60 backdrop-blur-sm p-4"
                 >
                   <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary/10">
                     <cred.icon className="h-4 w-4 text-primary" />

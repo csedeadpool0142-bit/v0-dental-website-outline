@@ -67,9 +67,8 @@ export default function SocialProof({
   onBookAppointment: () => void
 }) {
   return (
-    <section className="bg-background py-16 md:py-24">
+    <section className="bg-transparent py-16 md:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
         <div className="mx-auto mb-12 max-w-2xl text-center">
           <h2 className="text-balance text-3xl font-bold text-foreground md:text-4xl">
             Loved by Patients Across White Rock
@@ -79,12 +78,12 @@ export default function SocialProof({
           </p>
         </div>
 
-        {/* Layer 1: Stats Bar */}
+        {/* Stats Bar */}
         <div className="mb-16 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
           {stats.map((stat) => (
             <div
               key={stat.label}
-              className="flex flex-col items-center rounded-xl border border-border bg-card p-5 text-center transition-transform duration-300 hover:-translate-y-1"
+              className="flex flex-col items-center rounded-xl border border-border bg-white/60 backdrop-blur-sm p-5 text-center transition-transform duration-300 hover:-translate-y-1"
             >
               <stat.icon className="mb-2 h-5 w-5 text-primary" />
               <span className="text-2xl font-bold text-foreground">
@@ -97,7 +96,7 @@ export default function SocialProof({
           ))}
         </div>
 
-        {/* Layer 2: Before/After Cards */}
+        {/* Before/After Cards */}
         <div className="mb-16">
           <h3 className="mb-8 text-center text-xl font-semibold text-foreground">
             Real Results from Real Patients
@@ -106,7 +105,7 @@ export default function SocialProof({
             {transformations.map((item) => (
               <div
                 key={item.title}
-                className="overflow-hidden rounded-xl border border-border bg-card transition-transform duration-300 hover:-translate-y-1"
+                className="overflow-hidden rounded-xl border border-border bg-white/60 backdrop-blur-sm transition-transform duration-300 hover:-translate-y-1"
               >
                 <div className="relative aspect-video w-full bg-secondary">
                   <Image
@@ -130,7 +129,7 @@ export default function SocialProof({
           </div>
         </div>
 
-        {/* Layer 3: Testimonials */}
+        {/* Testimonials */}
         <div className="mb-12">
           <h3 className="mb-8 text-center text-xl font-semibold text-foreground">
             What Our Patients Say
@@ -139,7 +138,7 @@ export default function SocialProof({
             {testimonials.map((t) => (
               <div
                 key={t.name}
-                className="flex flex-col rounded-xl border border-border bg-card p-6 transition-transform duration-300 hover:-translate-y-1"
+                className="flex flex-col rounded-xl border border-border bg-white/60 backdrop-blur-sm p-6 transition-transform duration-300 hover:-translate-y-1"
               >
                 <div className="mb-3 flex items-center gap-0.5">
                   {Array.from({ length: t.rating }).map((_, i) => (
@@ -171,7 +170,7 @@ export default function SocialProof({
           </div>
         </div>
 
-        {/* Micro-trust badges */}
+        {/* Trust badges */}
         <div className="mb-8 flex flex-wrap items-center justify-center gap-6">
           {trustBadges.map((badge) => (
             <span
@@ -184,7 +183,6 @@ export default function SocialProof({
           ))}
         </div>
 
-        {/* Optional CTA */}
         <div className="text-center">
           <Button
             onClick={onBookAppointment}

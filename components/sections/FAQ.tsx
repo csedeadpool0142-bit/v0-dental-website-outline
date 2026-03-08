@@ -58,9 +58,8 @@ const trustBadges = [
 
 export default function FAQ() {
   return (
-    <section id="faq" className="bg-card py-16 md:py-24">
+    <section id="faq" className="bg-transparent py-16 md:py-24">
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
         <div className="mx-auto mb-12 max-w-2xl text-center">
           <h2 className="text-balance text-3xl font-bold text-foreground md:text-4xl">
             Common Questions From New Patients
@@ -70,7 +69,6 @@ export default function FAQ() {
           </p>
         </div>
 
-        {/* Accordion */}
         <Accordion type="single" collapsible className="w-full">
           {faqItems.map((item, index) => (
             <AccordionItem key={index} value={`item-${index}`}>
@@ -84,7 +82,6 @@ export default function FAQ() {
           ))}
         </Accordion>
 
-        {/* Micro-trust badges */}
         <div className="mt-10 flex flex-wrap items-center justify-center gap-6">
           {trustBadges.map((badge) => {
             const Icon = badge.icon

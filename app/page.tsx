@@ -13,7 +13,7 @@ import FAQ from "@/components/sections/FAQ"
 import Footer from "@/components/sections/Footer"
 import BookingModal from "@/components/BookingModal"
 import MobileCTA from "@/components/MobileCTA"
-import DynamicBackground from "@/components/DynamicBackground"
+import { AuroraBackground } from "@/components/AuroraBackground";
 
 export default function Home() {
   const [bookingOpen, setBookingOpen] = useState(false)
@@ -22,22 +22,20 @@ export default function Home() {
 
   return (
     <>
-      <DynamicBackground />
-      <Header onBookAppointment={openBooking} />
-
-      <main>
-        <Hero onBookAppointment={openBooking} />
-        <SocialProof onBookAppointment={openBooking} />
-        <Services onBookAppointment={openBooking} />
-        <Pricing onBookAppointment={openBooking} />
-        <ConversionBanner onBookAppointment={openBooking} />
-        <MeetDoctor />
-        <Comfort onBookAppointment={openBooking} />
-        <FAQ />
-      </main>
-
-      <Footer onBookAppointment={openBooking} />
-
+      <AuroraBackground>
+        <Header onBookAppointment={openBooking} />
+        <main>
+          <Hero onBookAppointment={openBooking} />
+          <SocialProof onBookAppointment={openBooking} />
+          <Services onBookAppointment={openBooking} />
+          <Pricing onBookAppointment={openBooking} />
+          <ConversionBanner onBookAppointment={openBooking} />
+          <MeetDoctor />
+          <Comfort onBookAppointment={openBooking} />
+          <FAQ />
+        </main>
+        <Footer onBookAppointment={openBooking} />
+      </AuroraBackground>
       <BookingModal open={bookingOpen} onOpenChange={setBookingOpen} />
       <MobileCTA onBookAppointment={openBooking} />
     </>

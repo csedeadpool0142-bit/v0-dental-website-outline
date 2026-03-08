@@ -34,9 +34,8 @@ export default function Comfort({
   onBookAppointment: () => void
 }) {
   return (
-    <section className="bg-background py-16 md:py-24">
+    <section className="bg-transparent py-16 md:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
         <div className="mx-auto mb-12 max-w-2xl text-center">
           <h2 className="text-balance text-3xl font-bold text-foreground md:text-4xl">
             Comfortable & Modern Dentistry
@@ -46,12 +45,11 @@ export default function Comfort({
           </p>
         </div>
 
-        {/* Cards Grid */}
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {comfortCards.map((card) => (
             <div
               key={card.title}
-              className="flex flex-col items-center rounded-xl border border-border bg-card p-6 text-center transition-transform duration-300 hover:-translate-y-1"
+              className="flex flex-col items-center rounded-xl border border-border bg-white/60 backdrop-blur-sm p-6 text-center transition-transform duration-300 hover:-translate-y-1"
             >
               <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10">
                 <card.icon className="h-6 w-6 text-primary" />
@@ -66,7 +64,6 @@ export default function Comfort({
           ))}
         </div>
 
-        {/* Optional CTA */}
         <div className="mt-12 text-center">
           <Button
             onClick={onBookAppointment}

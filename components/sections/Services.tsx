@@ -56,9 +56,8 @@ export default function Services({
   onBookAppointment: () => void
 }) {
   return (
-    <section id="services" className="bg-card py-16 md:py-24">
+    <section id="services" className="bg-transparent py-16 md:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
         <div className="mx-auto mb-12 max-w-2xl text-center">
           <h2 className="text-balance text-3xl font-bold text-foreground md:text-4xl">
             Our Services
@@ -68,12 +67,11 @@ export default function Services({
           </p>
         </div>
 
-        {/* Services Grid */}
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {services.map((service) => (
             <div
               key={service.title}
-              className="flex flex-col rounded-xl border border-border bg-background p-6 transition-transform duration-300 hover:-translate-y-1"
+              className="flex flex-col rounded-xl border border-border bg-white/60 backdrop-blur-sm p-6 transition-transform duration-300 hover:-translate-y-1"
             >
               <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-lg bg-primary/10">
                 <service.icon className="h-5 w-5 text-primary" />
@@ -91,7 +89,6 @@ export default function Services({
           ))}
         </div>
 
-        {/* Section CTA */}
         <div className="mt-12 text-center">
           <Button
             onClick={onBookAppointment}
